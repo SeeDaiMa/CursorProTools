@@ -22,7 +22,6 @@ Cursor 账号管理工具（`com.cursor.account.manager`）v0.2.19 的便携版�
    ```
    CursorProTools/
    ├── CursorProTools.app      # 应用本体（自包含，无需安装其他依赖）
-   ├── portable-data/          # 随包账号数据（accounts.db）
    ├── launcher.command        # 推荐的启动入口
    └── README.md
    ```
@@ -35,25 +34,26 @@ Cursor 账号管理工具（`com.cursor.account.manager`）v0.2.19 的便携版�
      ```
    - 或：系统设置 → 隐私与安全性 → 找到被拦提示 →「仍要打开」。
 
-3. 双击 `launcher.command` 启动（首次会自动把 `portable-data/accounts.db` 恢复到
-   `~/Library/Application Support/cursor-pro-tools/`，之后无需再配置）。
+3. 双击 `launcher.command` 或直接双击 `CursorProTools.app` 启动。
 
-   也可以直接双击 `CursorProTools.app`（首次仍需上面第 2 步的放行操作）。
+## 账号数据迁移
+
+账号数据存放在 `~/Library/Application Support/cursor-pro-tools/accounts.db`，
+首次启动应用会自动新建空数据库。
+
+从旧机器迁移：把旧机器上的该文件拷贝到新机器相同路径即可（启动前或启动后复制均可）。
 
 ## 说明
 
 - 应用完全自包含（内置 Electron 运行时），除上述放行步骤外**无需安装任何依赖**。
 - 应用本体在原版基础上包含社区修改（AI 登录、版本选择器、安装/卸载管理等 fix），
   以 `Resources/app.asar` 形式直接打包，未重新构建。
-- `portable-data/accounts.db` 为随包携带的账号数据库，仅当你想直接沿用该数据时保留；
-  如想从零开始，删除该文件后启动，应用会新建空数据库。
-- 账号数据实际存放于 `~/Library/Application Support/cursor-pro-tools/accounts.db`，
-  迁移到新机器时把该文件带过去即可。
+- 本发布包**不包含任何账号数据**。
 
 ## ⚠️ 安全提示
 
-随包的 `accounts.db` 内含账号凭据（cookies / licenses）。**请勿将解压后的数据用于
-公开传播**，仅限本人使用；如需分发给他人，建议删除 `portable-data/` 后再分享。
+- 你的账号数据仅存在于本机 `~/Library/Application Support/cursor-pro-tools/accounts.db`，
+  请勿将该文件分享或上传到公开场所。
 
 ## 已知限制
 
