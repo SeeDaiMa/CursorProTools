@@ -6,9 +6,14 @@ Cursor 账号管理工具（`com.cursor.account.manager`）v0.2.19 的便携版�
 
 ## 下载
 
-| 文件 | 说明 |
-|---|---|
-| `CursorProTools-macos-portable.zip` | 完整便携包（应用 + 账号数据 + 启动器） |
+> Release 页面：https://github.com/SeeDaiMa/CursorProTools/releases/tag/v0.2.19-portable
+
+| 文件 | 大小 | 直链下载 |
+|---|---|---|
+| `CursorProTools-macos-portable.zip` | 107 MB | [⬇️ 下载便携包](https://github.com/SeeDaiMa/CursorProTools/releases/download/v0.2.19-portable/CursorProTools-macos-portable.zip) |
+| `Cursor-darwin-3.17.19-arm64.dmg` | 258 MB | [⬇️ 下载 Cursor 官方 3.17.19 安装包](https://github.com/SeeDaiMa/CursorProTools/releases/download/v0.2.19-portable/Cursor-darwin-3.17.19-arm64.dmg)（供配套使用） |
+
+> 资产在 Release 页面底部的 **Assets** 折叠区内，直链可跳过查找。
 
 ## 安装与启动
 
