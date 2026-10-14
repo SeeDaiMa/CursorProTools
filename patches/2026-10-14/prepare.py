@@ -104,20 +104,25 @@ def glass_stages(data, editor):
     return before_input, before_click, before_profile, data
 
 
-def extract_member(data, member):
+def asar_header(data):
     header_size = struct.unpack_from('<I', data, 4)[0]
     json_size = struct.unpack_from('<I', data, 12)[0]
     if 16 + json_size > 8 + header_size or 8 + header_size > len(data):
         raise RuntimeError('Invalid ASAR header bounds')
-    header = json.loads(data[16:16 + json_size])
+    header_bytes = data[16:16 + json_size]
+    return json.loads(header_bytes), header_bytes, 8 + header_size
+
+
+def extract_member(data, member):
+    header, _, payload_start = asar_header(data)
     node = header
     for part in member.split('/'):
         node = node['files'][part]
     if node.get('unpacked') or node.get('link'):
         raise RuntimeError('Selected ASAR module is not a packed regular file')
-    start = 8 + header_size + int(node['offset'])
+    start = payload_start + int(node['offset'])
     end = start + node['size']
-    if start < 8 + header_size or end > len(data):
+    if start < payload_start or end > len(data):
         raise RuntimeError('Invalid ASAR member bounds')
     return data[start:end]
 
@@ -155,13 +160,13 @@ def prepare(cursor_app, tools_app, output):
     if archive_hash not in (spec['archive_sha256'], spec['patched_archive_sha256']):
         raise RuntimeError('Unknown ProTools archive baseline; refusing to overwrite other modifications')
     main = extract_member(archive, spec['member'])
+    header_hash = sha(asar_header(archive)[1])
     patch = {'scope': 'ProTools account transaction', 'originalSha256': spec['original_main_sha256'],
              'patchedSha256': spec['patched_main_sha256'], 'changes': spec['changes']}
     if sha(main) == patch['patchedSha256']:
         patched_main, original_main = main, transform(main, patch, reverse=True)
     else:
         original_main, patched_main = main, transform(main, patch)
-    del archive
     original_glass = glass_path.read_bytes()
     stages = glass_stages(original_glass, editor_path.read_bytes())
     product_bytes = product_path.read_bytes()
@@ -175,7 +180,18 @@ def prepare(cursor_app, tools_app, output):
         (stage / 'protools/original-main.js').write_bytes(original_main)
         (stage / 'protools/patched-main.js').write_bytes(patched_main)
         write_json(stage / 'protools/manifest.json', {**spec, 'target_archive': str(archive_path)})
-        subprocess.run(['node', str(ROOT / 'pack.mjs'), str(stage / 'protools')], check=True)
+        if archive_hash == spec['patched_archive_sha256']:
+            # Release ZIPs already contain the verified patched ASAR. Preserve
+            # those exact bytes; preparing Cursor fixes requires only Python.
+            (stage / 'protools/patched-app.asar').write_bytes(archive)
+            write_json(stage / 'protools/package-verification.json', {
+                'patched_archive_sha256': archive_hash, 'header_sha256': header_hash,
+                'changed_member': spec['member'], 'already_patched': True,
+                'original_to_patched_comparison': 'not rerun for already-patched input',
+            })
+        else:
+            subprocess.run(['node', str(ROOT / 'pack.mjs'), str(stage / 'protools')], check=True)
+        del archive
         package = json.loads((stage / 'protools/package-verification.json').read_text())
         integrity = info['ElectronAsarIntegrity']
         if integrity.get('algorithm') != 'SHA256':

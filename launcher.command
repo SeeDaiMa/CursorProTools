@@ -1,6 +1,6 @@
 #!/bin/bash
 # CursorProTools Portable 启动器
-# 用途：首次启动时自动恢复账号数据（accounts.db），然后启动应用。
+# 用途：启动应用；仅在用户自行提供本机数据库且目标不存在时迁移。
 # 之后每次启动直接运行本文件即可，或直接双击 CursorProTools.app。
 
 set -e
@@ -18,7 +18,7 @@ if [ ! -d "$APP" ]; then
     exit 1
 fi
 
-# 首次运行：恢复账号数据库（portable-data 里的 accounts.db）
+# 可选本机迁移：公开包的 portable-data 仅含说明，不附带数据库。
 mkdir -p "$APP_SUPPORT"
 if [ -f "$DATA_SRC" ] && [ ! -f "$APP_SUPPORT/accounts.db" ]; then
     cp "$DATA_SRC" "$APP_SUPPORT/accounts.db"

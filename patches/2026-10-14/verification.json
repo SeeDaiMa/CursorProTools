@@ -10,7 +10,9 @@
     "user_reported_local_acceptance": true,
     "existing_output_preserved": "passed",
     "unsupported_version_refused_before_output": "passed",
-    "python_and_js_syntax_including_complete_bundles": "passed"
+    "python_and_js_syntax_including_complete_bundles": "passed",
+    "patched_asar_prepare_without_node": "passed",
+    "original_asar_rebuild_after_header_refactor": "passed"
   },
   "final_sha256": {
     "cursor_glass": "4362395f6d70705424bc4d62204307bfba42788ef67b323204d5639dcbb5cf1a",
@@ -19,6 +21,7 @@
   "limitations": [
     "Controlled verification uses synthetic credentials and inert service adapters.",
     "No real account switch or model request was issued during publication verification.",
-    "Existing GitHub Release binary assets are unchanged."
-  ]
+    "Historical Release assets are retained; R3 packages the patched app and the portable Cursor repair entrypoint."
+  ],
+  "release_revision": "v0.2.19-portable-r3"
 }

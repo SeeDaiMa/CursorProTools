@@ -20,11 +20,13 @@
 - 初次移植时，Editor 需要已有 `wxDom 5.2.3` 注入，Editor SHA-256：`91c79c397dfef49b860d05e522cfd1a373786fc4a5fe1e4252eded7e45ea572b`。
 - `manifests/` 列出接受的 Agents 原始、中间和最终哈希。未知版本或其他修改会停止，不猜测替换位置。
 
-这是针对上述实测基线的修复，不承诺兼容同版本的任意其他安装包。旧 Release 的 ZIP 不会因提交这组补丁而自动更新。
+这是针对上述实测基线的修复，不承诺兼容同版本的任意其他安装包。R3 Release 包含修复后的 ProTools 应用与本组补丁；历史 Release 保留。
 
 ## 准备和安装
 
-需要已有 Python 3 与 Node.js 24.18.0 或更高版本。脚本不安装或升级系统工具。从本仓库根目录执行：
+R3 ZIP 用户可在完全退出两个应用后运行包内 `install-fixes.command`，使用已有 Python 3 安装 Cursor 修复，不需要 Node.js。脚本不安装或升级系统工具。
+
+从仓库开发或重新打包旧 ASAR 时，需要 Python 3 和 Node.js 24.18.0 或更高版本。从仓库根目录执行：
 
 ```sh
 cd patches/2026-10-14
@@ -63,7 +65,7 @@ python3 build/install.py restore
 
 仓库中的验证运行实际提取的函数，并使用合成凭证、临时 SQLite 和文件系统。覆盖账号事务一致性、串行写入、失败回退、旧 Session 清理、机器映射、LIMIT 点击与手动提交、监听清理及账号 Loading 回退。
 
-发布前从原始应用代码备份重新生成：全部安装文件与当天用户确认可用的文件逐字节一致。ProTools 仅修改 `out/main/index.js`，其余 9701 个打包文件逐字节一致；链接与 unpacked 元数据保持。已修复安装也可只读准备，输出相同最终哈希。
+发布前从原始应用代码备份重新生成：全部安装文件与当天用户确认可用的文件逐字节一致。ProTools 仅修改 `out/main/index.js`，其余 9701 个打包文件逐字节一致；链接与 unpacked 元数据保持。已修复安装也可只读准备，直接保留已验证 ASAR 字节，无需 Node.js，输出相同最终哈希。
 
 这些验证不调用真实账户或模型服务。用户已确认本机修复可用；本仓库没有独立验证所有账号、服务端权益或其他机器。见 [verification.json](verification.json)。
 
