@@ -1,0 +1,16 @@
+{
+  "originalSha256": "3d46cde4ef9378e7365b01b6b6583533c4d7035cb4173047969a33a6cbe4f7ef",
+  "patchedSha256": "4362395f6d70705424bc4d62204307bfba42788ef67b323204d5639dcbb5cf1a",
+  "scope": "UMg/glass-account-context ordinary profile failure only",
+  "replacementCount": 1,
+  "functionByteOffset": 30583824,
+  "change": {
+    "before": "catch(he){if(U.current!==re)return;if(s_i(he)){H();return}return n.isAuthenticated(),void 0}",
+    "after": "catch(he){if(U.current!==re)return;if(s_i(he)){H();return}if(ie())return;B(!1);const ge=await le;if(ie())return;return u(ge),void 0}"
+  },
+  "behavior": [
+    "For an authenticated, still-current ordinary profile failure, clear pending immediately.",
+    "Reuse the existing email promise as display fallback; check current identity after awaiting it.",
+    "Keep account_closed and all other bundle content unchanged."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-14",
+  "scope": "Reproducible source publication of the accepted local repair",
+  "results": {
+    "all_five_verification_suites": "passed",
+    "all_install_payloads_byte_identical_to_accepted_repair": true,
+    "protools_unselected_packed_files_byte_identical": 9701,
+    "unpacked_and_link_metadata_preserved": true,
+    "prepare_already_patched_install": "passed",
+    "user_reported_local_acceptance": true,
+    "existing_output_preserved": "passed",
+    "unsupported_version_refused_before_output": "passed",
+    "python_and_js_syntax_including_complete_bundles": "passed"
+  },
+  "final_sha256": {
+    "cursor_glass": "4362395f6d70705424bc4d62204307bfba42788ef67b323204d5639dcbb5cf1a",
+    "protools_archive": "7c089f09f492f3921e9ea3b892d3995f0dd9edcf5b401fc5fc191449b5cfbd97"
+  },
+  "limitations": [
+    "Controlled verification uses synthetic credentials and inert service adapters.",
+    "No real account switch or model request was issued during publication verification.",
+    "Existing GitHub Release binary assets are unchanged."
+  ]
+}

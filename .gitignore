@@ -1,3 +1,15 @@
 portable-data/
 *.db
 .gh_token
+
+node_modules/
+patches/*/build*/
+__pycache__/
+*.pyc
+.cursor-renewal/
+*.asar
+*.dmg
+*.zip
+*.app/
+backup-*/
+installed.json

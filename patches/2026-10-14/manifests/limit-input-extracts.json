@@ -1,0 +1,18 @@
+{
+  "submit-patched.js": {
+    "start": "function _qw(t){const{agentRef:e,promptInputRef:n,promptSuggestionRef:i,acceptSu",
+    "end": ",a,l,o,n,i,c,limitSubmissionBlockedRef]);return{acceptPromptSuggestion:f,handleSubmitWithHistory:b}}"
+  },
+  "followup-render-patched.js": {
+    "start": "function B1k({chrome:t,enterFromEmpty:e,isActiveSurface:n,keyboardBridgeEnabled:",
+    "end": "tatusArea(t.handleUsageCardOpen,t.handleContextTrayToggle,t.branchMismatchMoveToCloudController)]})}"
+  },
+  "submit-original.js": {
+    "start": "function _qw(t){const{agentRef:e,promptInputRef:n,promptSuggestionRef:i,acceptSu",
+    "end": "ompt(C),l(_),s()},[f,e,s,p,a,l,o,n,i,c]);return{acceptPromptSuggestion:f,handleSubmitWithHistory:b}}"
+  },
+  "followup-render-original.js": {
+    "start": "function B1k({chrome:t,enterFromEmpty:e,isActiveSurface:n,keyboardBridgeEnabled:",
+    "end": "tatusArea(t.handleUsageCardOpen,t.handleContextTrayToggle,t.branchMismatchMoveToCloudController)]})}"
+  }
+}

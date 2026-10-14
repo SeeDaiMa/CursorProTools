@@ -4,6 +4,12 @@ Cursor 账号管理工具（`com.cursor.account.manager`）v0.2.19 的便携版�
 
 > 架构：**Apple Silicon (arm64)**，macOS 11+。Intel Mac 不适用。
 
+## 2026-10-14 修复
+
+今天的 Agents Window、LIMIT 点击重试、账号无感同步与 Loading 修复已作为可复现补丁提交。请先阅读 [安装与恢复步骤](patches/2026-10-14/README.md) 和 [更新记录](CHANGELOG.md)。
+
+下面的旧版下载链接保留；这些 Release ZIP 尚未包含本次补丁。修复适用的应用基线及完整哈希检查见补丁说明。
+
 ## 下载
 
 > Release 页面：https://github.com/SeeDaiMa/CursorProTools/releases/tag/v0.2.19-portable

@@ -1,0 +1,38 @@
+{
+  "version": "3.17.19",
+  "scope": "An explicit click dismisses current local LIMIT and permits manual retry; backend checks remain",
+  "originalSha256": "4d0001890cebe5f40aca31ab71f92d5477304d2836b98609e78659b504266b05",
+  "patchedSha256": "3d46cde4ef9378e7365b01b6b6583533c4d7035cb4173047969a33a6cbe4f7ef",
+  "changes": [
+    {
+      "label": "Composer accepts the explicit input retry action",
+      "old": "isSubmitBlocked:usageLimitBlocksSubmission=!1,clearOnReadOnly:Ft=!0,",
+      "new": "isSubmitBlocked:usageLimitBlocksSubmission=!1,onInputRetry:retryLimitOnInput,clearOnReadOnly:Ft=!0,"
+    },
+    {
+      "label": "Input listener always sees the latest retry action",
+      "old": "limitSubmissionBlockedRef=Ds(usageLimitBlocksSubmission),{acceptPromptSuggestion:",
+      "new": "limitSubmissionBlockedRef=Ds(usageLimitBlocksSubmission),retryLimitOnInputRef=Ds(retryLimitOnInput),{acceptPromptSuggestion:"
+    },
+    {
+      "label": "Attach retry only to the actual editor DOM with owned cleanup",
+      "old": "mn.setEditable(!It),It&&mn.view.dom.blur()},[mn,It,Ft]);const nr=",
+      "new": "mn.setEditable(!It),It&&mn.view.dom.blur()},[mn,It,Ft]);vve(()=>{if(!mn)return;const inputDom=mn.view.dom,onInputPointerDown=()=>retryLimitOnInputRef.current?.();inputDom.addEventListener(\"pointerdown\",onInputPointerDown);return()=>inputDom.removeEventListener(\"pointerdown\",onInputPointerDown)},[mn,retryLimitOnInputRef]);const nr="
+    },
+    {
+      "label": "Only an explicit input click clears current hard LIMIT; other read-only states remain",
+      "old": "isReadOnly:l,isSubmitBlocked:a,onAcceptPluginKeywordHighlight:",
+      "new": "isReadOnly:l,isSubmitBlocked:a,onInputRetry:()=>{if(a&&!l){t.dismissUsageLimitForRetry?.();s.clearUsageLimitForRetry?.()}},onAcceptPluginKeywordHighlight:"
+    },
+    {
+      "label": "Use the existing usage-state owner to invalidate local cached status",
+      "old": "isPolledLimitHitHardBlock:ne,lockedPlaceholder:U2,",
+      "new": "isPolledLimitHitHardBlock:ne,clearUsageLimitForRetry:()=>{q.clearCachedData()},lockedPlaceholder:U2,"
+    },
+    {
+      "label": "Use the error-card owner native dismissal action",
+      "old": "handleUsageCardOpen:A6,hasActiveHardBlockLimitHitBubble:Lx.visible&&Lx.isHardBlockLimitHitBubble,",
+      "new": "handleUsageCardOpen:A6,dismissUsageLimitForRetry:()=>{if(Lx.visible&&Lx.isHardBlockLimitHitBubble)Lx.onDismiss?.()},hasActiveHardBlockLimitHitBubble:Lx.visible&&Lx.isHardBlockLimitHitBubble,"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "cursor-protools-repair-20261014",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.18.0"
+  },
+  "scripts": {
+    "verify": "node tests/verify-protools.mjs && node tests/verify-profile.mjs && node tests/verify-limit-input.cjs && node tests/verify-limit-click.cjs && python3 tests/verify-installer.py"
+  },
+  "devDependencies": {
+    "@babel/parser": "8.0.4",
+    "@electron/asar": "4.2.0"
+  }
+}

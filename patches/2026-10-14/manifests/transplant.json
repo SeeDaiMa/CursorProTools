@@ -1,0 +1,15 @@
+{
+  "version": "3.17.19",
+  "editorSha256": "91c79c397dfef49b860d05e522cfd1a373786fc4a5fe1e4252eded7e45ea572b",
+  "originalSha256": "97920ec710900b0fb51e2741e2e93a7c4cb4d96ce22fb8dc603a4526a17f00ad",
+  "patchedSha256": "02cd4df0b207753417ecee9e1368931bf10b69ea92930e68d62e205081fb4d38",
+  "domHookSha256": "cb4b7f486943e4073a270030cde5c668a367c0c50d969a5e9193c6a6483f5dd6",
+  "domHookBytes": 13092,
+  "changes": [
+    "Existing Editor membership producer injection",
+    "Existing Editor logout early return",
+    "Existing Editor plan display injection",
+    "Exact Editor DOM hook bytes appended",
+    "Agents integrity checksum added"
+  ]
+}

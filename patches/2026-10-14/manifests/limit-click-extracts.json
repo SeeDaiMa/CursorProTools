@@ -1,0 +1,22 @@
+{
+  "submit-patched.js": {
+    "start": "function _qw(t){const{agentRef:e,promptInputRef:n,promptSuggestionRef:i,acceptSu",
+    "end": ",a,l,o,n,i,c,limitSubmissionBlockedRef]);return{acceptPromptSuggestion:f,handleSubmitWithHistory:b}}"
+  },
+  "followup-render-patched.js": {
+    "start": "function B1k({chrome:t,enterFromEmpty:e,isActiveSurface:n,keyboardBridgeEnabled:",
+    "end": "tatusArea(t.handleUsageCardOpen,t.handleContextTrayToggle,t.branchMismatchMoveToCloudController)]})}"
+  },
+  "input-listener-patched.js": {
+    "start": "vve(()=>{if(!mn)return;const inputDom=mn.view.dom,onInputPointerDown=()=>retryLi",
+    "end": "eturn()=>inputDom.removeEventListener(\"pointerdown\",onInputPointerDown)},[mn,retryLimitOnInputRef]);"
+  },
+  "submit-original.js": {
+    "start": "function _qw(t){const{agentRef:e,promptInputRef:n,promptSuggestionRef:i,acceptSu",
+    "end": ",a,l,o,n,i,c,limitSubmissionBlockedRef]);return{acceptPromptSuggestion:f,handleSubmitWithHistory:b}}"
+  },
+  "followup-render-original.js": {
+    "start": "function B1k({chrome:t,enterFromEmpty:e,isActiveSurface:n,keyboardBridgeEnabled:",
+    "end": "tatusArea(t.handleUsageCardOpen,t.handleContextTrayToggle,t.branchMismatchMoveToCloudController)]})}"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "version": "3.17.19",
+  "scope": "Allow draft editing during LIMIT, preserve submission restrictions and existing injection",
+  "originalSha256": "02cd4df0b207753417ecee9e1368931bf10b69ea92930e68d62e205081fb4d38",
+  "patchedSha256": "4d0001890cebe5f40aca31ab71f92d5477304d2836b98609e78659b504266b05",
+  "changes": [
+    {
+      "label": "Followup access preserves editing independently from polled limit",
+      "old": "access:{...l5,isReadOnly:l5.isReadOnly||ne}",
+      "new": "access:{...l5,isReadOnly:l5.isReadOnly}"
+    },
+    {
+      "label": "Limit notice does not make the input readonly",
+      "old": "a=s.isPolledLimitHitHardBlock||t.hasActiveHardBlockLimitHitBubble,l=s.access.isReadOnly||a,",
+      "new": "a=s.isPolledLimitHitHardBlock||t.hasActiveHardBlockLimitHitBubble,l=s.access.isReadOnly,"
+    },
+    {
+      "label": "Pass a separate submission restriction",
+      "old": "...s.access,isReadOnly:l,onAcceptPluginKeywordHighlight:",
+      "new": "...s.access,isReadOnly:l,isSubmitBlocked:a,onAcceptPluginKeywordHighlight:"
+    },
+    {
+      "label": "Keep the original stop-control restriction",
+      "old": "onStop:l?void 0:s.onStop,onSubmit:l?()=>{}:",
+      "new": "onStop:l||a?void 0:s.onStop,onSubmit:l?()=>{}:"
+    },
+    {
+      "label": "Composer declares separate submission policy",
+      "old": "isReadOnly:It=!1,clearOnReadOnly:Ft=!0,",
+      "new": "isReadOnly:It=!1,isSubmitBlocked:usageLimitBlocksSubmission=!1,clearOnReadOnly:Ft=!0,"
+    },
+    {
+      "label": "Latest submission policy reaches the keyboard callback",
+      "old": "$r=Ds(ki),{acceptPromptSuggestion:Fi,handleSubmitWithHistory:Yn}",
+      "new": "$r=Ds(ki),limitSubmissionBlockedRef=Ds(usageLimitBlocksSubmission),{acceptPromptSuggestion:Fi,handleSubmitWithHistory:Yn}"
+    },
+    {
+      "label": "Bind submission callback to the policy owner",
+      "old": "hasAttachmentMedia:qn,onSubmit:y,submitOverride:Pt,applySkillSelectionSideEffects:Ie",
+      "new": "hasAttachmentMedia:qn,onSubmit:y,submitOverride:Pt,submissionBlockedRef:limitSubmissionBlockedRef,applySkillSelectionSideEffects:Ie"
+    },
+    {
+      "label": "Submission workflow accepts the policy reference",
+      "old": "onSubmit:l,submitOverride:c,applySkillSelectionSideEffects:u,onSkillSelected:d}=t",
+      "new": "onSubmit:l,submitOverride:c,submissionBlockedRef:limitSubmissionBlockedRef,applySkillSelectionSideEffects:u,onSkillSelected:d}=t"
+    },
+    {
+      "label": "Blocked Enter never submits, records history, or clears the suggestion",
+      "old": "b=WNg(_=>{if(c||g.current)return;",
+      "new": "b=WNg(_=>{if(limitSubmissionBlockedRef?.current||c||g.current)return;"
+    },
+    {
+      "label": "Preserve callback dependencies",
+      "old": "[f,e,s,p,a,l,o,n,i,c]);return{acceptPromptSuggestion:f,handleSubmitWithHistory:b}",
+      "new": "[f,e,s,p,a,l,o,n,i,c,limitSubmissionBlockedRef]);return{acceptPromptSuggestion:f,handleSubmitWithHistory:b}"
+    },
+    {
+      "label": "Send and microphone remain disabled during a limit",
+      "old": "forceDisabled:It,hasLeadingSendAction:se!==void 0",
+      "new": "forceDisabled:It||usageLimitBlocksSubmission,hasLeadingSendAction:se!==void 0"
+    }
+  ]
+}
