@@ -12,7 +12,17 @@ R3 已内置当天的 ProTools 账号同步修复，并附带 Cursor 3.17.19 的
 | 运行 ProTools | 自带 Electron，无需另装 Node.js |
 | 安装 Agents Window 修复 | 需要已有 Python 3；R3 包无需 Node.js / npm |
 
-## 最新源码更新：轻量化优化
+## 最新 Cursor 模型修复：输入恢复与 MAX 显示
+
+2026-10-14 新增 [模型控制修复](patches/2026-10-14-model-controls/README.md)，独立发布为 [`v0.2.19-model-controls`](https://github.com/SeeDaiMa/CursorProTools/releases/tag/v0.2.19-model-controls)。
+
+- 新建聊天和已有聊天都支持在模型/额度错误后点击输入区关闭当前本地错误，再手动重试；草稿保留，点击不发送消息。
+- 恢复模型菜单中的 **MAX Mode** 原生开关，开启时模型名旁显示 **MAX**。安装不会自动改变当前 Max 值或所选模型。
+- [下载修复 ZIP](https://github.com/SeeDaiMa/CursorProTools/releases/download/v0.2.19-model-controls/Cursor-3.17.19-model-controls-macos.zip)，使用已有 Python 3 安装到已支持的 Cursor 3.17.19 基线。
+
+这是 Cursor 的独立补丁下载。R3 完整 ProTools 便携包及原有下载地址保留。新补丁的语法、原生函数/组件受控回放和安装器验证已完成；本机已有聊天模型菜单的 MAX 开关可见，当前为关闭，真实模型请求未执行。安装与回滚见 [使用说明](patches/2026-10-14-model-controls/README.md)。
+
+## 轻量化源码更新
 
 2026-10-14 新增 [轻量化补丁与复现说明](patches/2026-10-14-lightweight/README.md)，已在本机安装、正常重启并检查界面。此次更新减少账号列表的重复渲染和单次请求中的重复读取，保留现有账号操作、刷新周期、页面状态及失败回退。
 

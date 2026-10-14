@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "scope": "Cursor 3.17.19 model error input recovery and MAX control visibility",
+  "results": {
+    "complete_esm_syntax": "passed",
+    "native_model_error_replay": "passed",
+    "native_max_component_replay": "passed",
+    "installer_replay": "passed",
+    "known_install_stages": 3,
+    "installer_idempotency_restore_drift_and_partial_write_rollback": "passed",
+    "package_prepare_reads_no_account_data": true,
+    "current_local_application_digest_matches_final": true,
+    "live_followup_picker_MAX_Mode_visible": true,
+    "live_followup_picker_MAX_Mode_value": false,
+    "Max_toggle_changed_by_release_verification": false
+  },
+  "final_cursor_glass_sha256": "6712795ed504ee5030912f051fa1b90f9c4bda88ad6bcda783eca07fb4841919",
+  "limitations": [
+    "Live inspection verified the existing chat model menu only.",
+    "The on-state MAX badge and new-chat behavior were verified through controlled native-function replay.",
+    "No model request or real account operation was issued during this release verification.",
+    "Previous agent-origin application writes were blocked by macOS application-management protection."
+  ]
+}

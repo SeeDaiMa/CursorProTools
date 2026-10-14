@@ -1,0 +1,33 @@
+{
+  "scope": "max-visibility",
+  "version": "3.17.19",
+  "originalSha256": "8e9d94d76aedd99267686a03dea87a2cc53a6ad96826dcc83a5e808e385d84ee",
+  "patchedSha256": "6712795ed504ee5030912f051fa1b90f9c4bda88ad6bcda783eca07fb4841919",
+  "changes": [
+    {
+      "label": "remove badge feature-gate subscription from picker owner",
+      "old": "const i=bRe(),r=ga(\"model_picker_max_badge\"),s=Gb(\"model_picker_hover_options\",n),",
+      "new": "const i=bRe(),s=Gb(\"model_picker_hover_options\",n),"
+    },
+    {
+      "label": "remove token-pricing concealment from picker owner",
+      "old": "W=n3(c,qWw),G=Gb(\"model_picker_hide_max_mode_token_users\",W.hasTokenBasedPricing===!0)&&W.hasTokenBasedPricing===!0,q=Mc(c,",
+      "new": "W=n3(c,qWw),q=Mc(c,"
+    },
+    {
+      "label": "show MAX badge from effective mode state",
+      "old": "an=C8(()=>!ge&&!G&&r&&kn,[G,kn,ge,r]),",
+      "new": "an=C8(()=>!ge&&kn,[kn,ge]),"
+    },
+    {
+      "label": "retain native MAX confirmation when the control is visible",
+      "old": "In=C8(()=>!pc.localMode&&!ge&&!Ve&&!G&&!W.hasAcceptedMaxModeConfirmation,[G,ge,W.hasAcceptedMaxModeConfirmation,Ve]),",
+      "new": "In=C8(()=>!pc.localMode&&!ge&&!Ve&&!W.hasAcceptedMaxModeConfirmation,[ge,W.hasAcceptedMaxModeConfirmation,Ve]),"
+    },
+    {
+      "label": "restore native MAX switch while preserving restriction policy",
+      "old": "hi=C8(()=>DHt({hideMaxToggle:ge||G,isLocalMode:pc.localMode,isMaxModeRequired:Ve,shouldConfirmMaxMode:In}),[G,ge,In,Ve]),",
+      "new": "hi=C8(()=>DHt({hideMaxToggle:ge,isLocalMode:pc.localMode,isMaxModeRequired:Ve,shouldConfirmMaxMode:In}),[ge,In,Ve]),"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "scope": "model-errors",
+  "version": "3.17.19",
+  "originalSha256": "4362395f6d70705424bc4d62204307bfba42788ef67b323204d5639dcbb5cf1a",
+  "patchedSha256": "8e9d94d76aedd99267686a03dea87a2cc53a6ad96826dcc83a5e808e385d84ee",
+  "changes": [
+    {
+      "label": "error owner classifies dismissible usage and model errors once",
+      "old": "isModelSwitchRequired:fe,isLimitHitBubble:ke,isHardBlockLimitHitBubble:Ae,",
+      "new": "isModelSwitchRequired:fe,isLimitHitBubble:ke,isHardBlockLimitHitBubble:Ae,isInputRetryableError:!!R&&(Ae||fe||Ce||k.title===\"Named models unavailable\"),"
+    },
+    {
+      "label": "empty error state preserves explicit false",
+      "old": "isModelSwitchRequired:!1,isLimitHitBubble:!1,isHardBlockLimitHitBubble:!1,",
+      "new": "isModelSwitchRequired:!1,isLimitHitBubble:!1,isHardBlockLimitHitBubble:!1,isInputRetryableError:!1,"
+    },
+    {
+      "label": "followup chrome consumes error owner classification",
+      "old": "dismissUsageLimitForRetry:()=>{if(Lx.visible&&Lx.isHardBlockLimitHitBubble)Lx.onDismiss?.()},hasActiveHardBlockLimitHitBubble:Lx.visible&&Lx.isHardBlockLimitHitBubble,",
+      "new": "dismissInputErrorForRetry:()=>{if(Lx.visible&&Lx.isInputRetryableError)Lx.onDismiss?.()},hasActiveInputRetryableError:Lx.visible&&Lx.isInputRetryableError,hasActiveHardBlockLimitHitBubble:Lx.visible&&Lx.isHardBlockLimitHitBubble,"
+    },
+    {
+      "label": "followup submission waits for current error dismissal",
+      "old": "a=s.isPolledLimitHitHardBlock||t.hasActiveHardBlockLimitHitBubble,l=s.access.isReadOnly,",
+      "new": "a=s.isPolledLimitHitHardBlock||t.hasActiveInputRetryableError,l=s.access.isReadOnly,"
+    },
+    {
+      "label": "model error keeps the normal composer placeholder",
+      "old": "u=s.followupLocked?s.lockedPlaceholder:a?\"You're out of usage\":c,",
+      "new": "u=s.followupLocked?s.lockedPlaceholder:s.isPolledLimitHitHardBlock||t.hasActiveHardBlockLimitHitBubble?\"You're out of usage\":c,"
+    },
+    {
+      "label": "model dismissal does not invalidate unrelated usage cache",
+      "old": "onInputRetry:()=>{if(a&&!l){t.dismissUsageLimitForRetry?.();s.clearUsageLimitForRetry?.()}},",
+      "new": "onInputRetry:()=>{if(a&&!l){t.dismissInputErrorForRetry?.();if(s.isPolledLimitHitHardBlock||t.hasActiveHardBlockLimitHitBubble)s.clearUsageLimitForRetry?.()}},"
+    },
+    {
+      "label": "new chat uses owner classification for all submit routes",
+      "old": "A6=ve||She.visible&&She.isHardBlockLimitHitBubble,Ebe=",
+      "new": "A6=ve||She.visible&&She.isInputRetryableError,Ebe="
+    },
+    {
+      "label": "new chat preserves draft and reuses actual editor click listener",
+      "old": "clearOnReadOnly:!1,isReadOnly:A6,isMentionItemsLoading:Yb,",
+      "new": "clearOnReadOnly:!1,isReadOnly:!1,isSubmitBlocked:A6,onInputRetry:()=>{if(A6){if(She.visible&&She.isInputRetryableError)She.onDismiss?.();if(ve)ue.clearCachedData()}},isMentionItemsLoading:Yb,"
+    },
+    {
+      "label": "new chat model error keeps model-independent placeholder",
+      "old": "Pbe=Cj?\"Drop here to attach...\":A6?\"You're out of usage\":cr.promptPlaceholder",
+      "new": "Pbe=Cj?\"Drop here to attach...\":ve||She.visible&&She.isHardBlockLimitHitBubble?\"You're out of usage\":cr.promptPlaceholder"
+    }
+  ]
+}

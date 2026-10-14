@@ -1,0 +1,1 @@
+function DHt({hideMaxToggle:t,isLocalMode:e,isMaxModeRequired:n,shouldConfirmMaxMode:i}){let r;return e?r={kind:"hidden"}:n?r={kind:"disabled",maxModeToggleDisabled:!0,maxModeToggleDisabledTooltip:AMm}:r={kind:"enabled"},{hideMaxToggle:t||e,toggle:r,maxModeActionMode:i?"deferred":"immediate"}}

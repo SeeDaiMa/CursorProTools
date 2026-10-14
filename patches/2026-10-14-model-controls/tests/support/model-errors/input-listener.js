@@ -1,0 +1,1 @@
+vve(()=>{if(!mn)return;const inputDom=mn.view.dom,onInputPointerDown=()=>retryLimitOnInputRef.current?.();inputDom.addEventListener("pointerdown",onInputPointerDown);return()=>inputDom.removeEventListener("pointerdown",onInputPointerDown)},[mn,retryLimitOnInputRef]);
