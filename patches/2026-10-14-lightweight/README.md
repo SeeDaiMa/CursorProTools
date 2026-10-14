@@ -28,25 +28,27 @@
 
 ## 复现
 
-需要 Node.js 24.18.0 和锁定开发依赖。读取 R3 ASAR 基线：
+需要 Node.js 24.18.0 和锁定开发依赖。在本说明所在目录执行以下命令；默认读取 `/Applications/CursorProTools.app/Contents/Resources/app.asar` 的原始 R3 基线，并生成新的 `build/` 目录：
 
 ```sh
 npm ci --ignore-scripts
-node prepare.mjs BUILD_DIRECTORY R3_ASAR_PATH
-node verify.mjs BUILD_DIRECTORY
-node pack.mjs BUILD_DIRECTORY
-node tests/make-fixtures.mjs BUILD_DIRECTORY
-node tests/browser-check.mjs BUILD_DIRECTORY
+node prepare.mjs
+node verify.mjs
+node pack.mjs
+node tests/make-fixtures.mjs
+node tests/browser-check.mjs
 ```
 
-`BUILD_DIRECTORY` 是新的输出目录，`R3_ASAR_PATH` 是 R3 包内 ASAR 或安装备份。以上操作只准备/测试，不修改真实应用。浏览器测试需要已安装的 Google Chrome，使用独立临时配置、白名单本机资源和合成 API。
+如果已安装轻量化版或其他补丁，需要使用原始 R3 ZIP 中的 ASAR 或安装前备份。`prepare.mjs` 的第一个参数可指定新的输出目录，第二个参数可指定该 ASAR 的实际路径；后续命令的第一个参数应使用同一输出目录。基线哈希不匹配或输出目录已存在时会停止。以上操作只准备、测试和生成 ASAR，不修改真实应用。浏览器测试需要已安装的 Google Chrome，使用独立临时配置、白名单本机资源和合成 API。
+
+`install.py` 是本机已验证的代码安装/恢复实现，需要同目录的 `install-manifest.json`、应用校验元数据及对应副本。上述准备命令不生成完整安装清单；本仓库不包含私人安装记录与备份，因此不能直接从源码目录运行安装。现有 Release 仍是原始 R3。
 
 ## 本机恢复
 
-当前安装备份与恢复记录在本机优化工作目录。先完全退出 ProTools，再执行：
+已安装本轮优化的机器，需要保留当时的优化工作目录、`installed.json` 和备份。先完全退出 ProTools，再进入保存安装记录的目录执行：
 
 ```sh
-python3 "/Users/Rea/.cache/cursor-protools-lightweight-20261014/install.py" restore
+python3 install.py restore
 ```
 
 恢复应用代码和签名，保留当前账号状态；发现后续应用更新时拒绝覆盖。此步骤未更新 GitHub Release 二进制资产。

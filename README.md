@@ -12,6 +12,14 @@ R3 已内置当天的 ProTools 账号同步修复，并附带 Cursor 3.17.19 的
 | 运行 ProTools | 自带 Electron，无需另装 Node.js |
 | 安装 Agents Window 修复 | 需要已有 Python 3；R3 包无需 Node.js / npm |
 
+## 最新源码更新：轻量化优化
+
+2026-10-14 新增 [轻量化补丁与复现说明](patches/2026-10-14-lightweight/README.md)，已在本机安装、正常重启并检查界面。此次更新减少账号列表的重复渲染和单次请求中的重复读取，保留现有账号操作、刷新周期、页面状态及失败回退。
+
+在合成 804 条账号的受控对照中，12 次相同数据刷新产生的账号行渲染从 9648 次降到 0 次；单行选择从 804 次降到 1 次。相同刷新场景的主线程任务时间约为 0.464 秒 → 0.078 秒。所有账号行仍保留，因此这组结果不代表常驻内存一定下降。验证范围和限制见 [验证记录](patches/2026-10-14-lightweight/verification.json)。
+
+**这次发布的是补丁源码、测试与验证记录。下面的 R3 Release ZIP 保持原内容，尚未包含轻量化优化。**
+
 ## 下载最新版本
 
 [打开 R3 Release](https://github.com/SeeDaiMa/CursorProTools/releases/tag/v0.2.19-portable-r3) · [始终打开最新 Release](https://github.com/SeeDaiMa/CursorProTools/releases/latest)
