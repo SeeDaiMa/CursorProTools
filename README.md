@@ -1,16 +1,31 @@
-# CursorProTools — macOS Portable R3
+# CursorProTools — macOS 便携版与 Cursor 修复
 
-Cursor 账号管理工具（`com.cursor.account.manager`）的 macOS 便携版。**当前最新发布为 `v0.2.19-portable-r3`，发布于 2026-10-14。**
+Cursor 账号管理工具（`com.cursor.account.manager`）的 macOS 便携版，以及配套的 Cursor Agents Window 修复。2026-10-14 的发布分为两个下载：
 
-R3 已内置当天的 ProTools 账号同步修复，并附带 Cursor 3.17.19 的 Agents Window 修复安装入口。应用本体运行与安装 Cursor 修复分别使用下面两个入口。
+| 下载 | 版本 | 包含内容 |
+|---|---|---|
+| [完整 ProTools 便携包](https://github.com/SeeDaiMa/CursorProTools/releases/tag/v0.2.19-portable-r3) | `v0.2.19-portable-r3` | ProTools 应用、账号同步修复，以及原有 Cursor 3.17.19 Agents Window 修复安装入口。 |
+| [最新模型控制修复包](https://github.com/SeeDaiMa/CursorProTools/releases/tag/v0.2.19-model-controls) | `v0.2.19-model-controls` | 模型错误后的输入恢复、MAX Mode 开关与状态标记，以及安装/回滚脚本。 |
+
+**R3 完整 ZIP 尚未包含最新模型控制修复和轻量化优化。** 模型控制修复作为独立 ZIP 发布，轻量化优化目前发布的是补丁源码。GitHub 的 [`releases/latest`](https://github.com/SeeDaiMa/CursorProTools/releases/latest) 当前仍指向 R3 完整应用；最新模型修复请使用上表中的专用入口。
+
+## 选择下载与安装顺序
+
+| 当前情况 | 下载与操作 |
+|---|---|
+| 已使用 R3，并已完成原有 Agents Window 修复 | 下载最新模型控制修复 ZIP，按下方步骤安装。 |
+| 本机已经安装了此前的模型错误输入恢复 | 最新模型控制修复 ZIP 同样支持这一中间阶段，可继续安装 MAX 显示修复。 |
+| 第一次使用，或还没有安装原有 Agents Window 修复 | 先阅读 [R3 基础修复安装步骤](#安装-r3-基础-agents-window-修复)，完成受支持的基线后，再安装模型控制修复。 |
+
+仅 Cursor 版本号相同并不代表基线兼容；两个安装器都会核对文件哈希。未知安装包或其他修改会停止，具体前置条件见各补丁说明。
 
 | 项目 | 当前版本 / 要求 |
 |---|---|
 | CursorProTools | 0.2.19，Portable R3 |
 | 平台 | Apple Silicon（arm64），macOS 11+ |
-| 配套 Cursor 修复 | 3.17.19，且文件哈希符合补丁清单 |
+| 配套 Cursor 修复 | 3.17.19，且文件哈希符合相应补丁清单 |
 | 运行 ProTools | 自带 Electron，无需另装 Node.js |
-| 安装 Agents Window 修复 | 需要已有 Python 3；R3 包无需 Node.js / npm |
+| 安装两个已发布的 Cursor 修复包 | 需要已有 Python 3；安装无需 Node.js / npm |
 
 ## 最新 Cursor 模型修复：输入恢复与 MAX 显示
 
@@ -18,9 +33,35 @@ R3 已内置当天的 ProTools 账号同步修复，并附带 Cursor 3.17.19 的
 
 - 新建聊天和已有聊天都支持在模型/额度错误后点击输入区关闭当前本地错误，再手动重试；草稿保留，点击不发送消息。
 - 恢复模型菜单中的 **MAX Mode** 原生开关，开启时模型名旁显示 **MAX**。安装不会自动改变当前 Max 值或所选模型。
-- [下载修复 ZIP](https://github.com/SeeDaiMa/CursorProTools/releases/download/v0.2.19-model-controls/Cursor-3.17.19-model-controls-macos.zip)，使用已有 Python 3 安装到已支持的 Cursor 3.17.19 基线。
 
-这是 Cursor 的独立补丁下载。R3 完整 ProTools 便携包及原有下载地址保留。新补丁的语法、原生函数/组件受控回放和安装器验证已完成；本机已有聊天模型菜单的 MAX 开关可见，当前为关闭，真实模型请求未执行。安装与回滚见 [使用说明](patches/2026-10-14-model-controls/README.md)。
+| 文件 | 大小 | 下载 |
+|---|---|---|
+| 模型控制修复 ZIP | 20,694 bytes，约 20 KB | [下载 ZIP](https://github.com/SeeDaiMa/CursorProTools/releases/download/v0.2.19-model-controls/Cursor-3.17.19-model-controls-macos.zip) |
+| 修复 ZIP 的 SHA-256 校验文件 | 106 bytes | [下载校验文件](https://github.com/SeeDaiMa/CursorProTools/releases/download/v0.2.19-model-controls/Cursor-3.17.19-model-controls-macos.zip.sha256) |
+
+将 ZIP 和 `.sha256` 下载到同一目录，在该目录执行：
+
+```sh
+shasum -a 256 -c Cursor-3.17.19-model-controls-macos.zip.sha256
+```
+
+看到 ZIP 文件名后跟 `OK`，再按以下顺序安装：
+
+1. 解压 ZIP，保留完整的 `CursorModelControls` 目录。
+2. 保存工作，使用 Cmd+Q **完全退出 Cursor**。
+3. 在解压后的 `CursorModelControls` 目录打开 Terminal，执行：
+
+   ```sh
+   sh install.command
+   ```
+
+4. 看到 `installed` 或 `already_installed` 后重新打开 Cursor。展开模型菜单，检查 **MAX Mode** 开关；关闭后 MAX 标记应消失，所选模型保留。
+
+脚本默认目标为 `/Applications/Cursor.app`，只修改 Agents Window 脚本及其 checksum，不读取或写入账号数据。安装不会自动关闭已有 Max 状态，需要用户在显示出的原生开关中手动选择。
+
+遇到 `Operation not permitted` 时，检查“系统设置 → 隐私与安全性 → 应用管理”中实际执行脚本的终端权限，重新打开终端后重试。请保留输出的 `build-日期时间/` 备份目录；完整基线、其他安装路径和回滚步骤见 [使用说明](patches/2026-10-14-model-controls/README.md)。
+
+新补丁的语法、原生函数/组件受控回放和安装器验证已完成。本机已有聊天模型菜单的 MAX 开关已确认可见，检查时为关闭；真实模型请求未执行。见 [验证记录](patches/2026-10-14-model-controls/verification.json)。
 
 ## 轻量化源码更新
 
@@ -28,11 +69,11 @@ R3 已内置当天的 ProTools 账号同步修复，并附带 Cursor 3.17.19 的
 
 在合成 804 条账号的受控对照中，12 次相同数据刷新产生的账号行渲染从 9648 次降到 0 次；单行选择从 804 次降到 1 次。相同刷新场景的主线程任务时间约为 0.464 秒 → 0.078 秒。所有账号行仍保留，因此这组结果不代表常驻内存一定下降。验证范围和限制见 [验证记录](patches/2026-10-14-lightweight/verification.json)。
 
-**这次发布的是补丁源码、测试与验证记录。下面的 R3 Release ZIP 保持原内容，尚未包含轻量化优化。**
+轻量化更新发布的是补丁源码、测试与验证记录，R3 完整 ZIP 尚未包含该优化。源码安装流程见 [轻量化说明](patches/2026-10-14-lightweight/README.md)。
 
-## 下载最新版本
+## 下载完整 ProTools 便携版 R3
 
-[打开 R3 Release](https://github.com/SeeDaiMa/CursorProTools/releases/tag/v0.2.19-portable-r3) · [始终打开最新 Release](https://github.com/SeeDaiMa/CursorProTools/releases/latest)
+[打开 R3 完整应用 Release](https://github.com/SeeDaiMa/CursorProTools/releases/tag/v0.2.19-portable-r3)
 
 | 文件 | 大小 | 下载 |
 |---|---|---|
@@ -77,7 +118,7 @@ xattr -cr CursorProTools.app
 
 随后双击 `launcher.command`，或直接打开包内的 `CursorProTools.app`。`launcher.command` 启动的是同一目录中的应用，使用时请保留这两个文件的相对位置。
 
-## 安装 Agents Window 修复
+## 安装 R3 基础 Agents Window 修复
 
 1. 保存任务，使用 Cmd+Q **完全退出 Cursor 和 CursorProTools**。仅关闭窗口可能仍有后台进程。
 2. 确认本机已有 Python 3，然后双击解压目录内的 **`install-fixes.command`**。
@@ -95,7 +136,7 @@ xattr -cr CursorProTools.app
 
 安装会备份应用代码与签名，核对应用完整性，并在身份能确认时对齐当前已选中账号的共享状态。它不另选账号，也不改变已有自动换号或自动续接开关。`current_account_sources_aligned=true` 表示本地来源一致，实际模型请求仍由服务端处理。
 
-## 今天修复了什么
+## R3 基础修复包含什么
 
 | 触发条件 | 修复后的行为 |
 |---|---|
@@ -109,7 +150,7 @@ Token 注入日志不再输出 Token 片段。本地 Pro 显示与本地 LIMIT �
 
 见 [完整更新记录](CHANGELOG.md)、[详细补丁说明](patches/2026-10-14/README.md) 和 [受控验证记录](patches/2026-10-14/verification.json)。
 
-## 恢复应用代码
+## 恢复 R3 基础修复
 
 准备文件、安装备份和恢复记录在 `patches/2026-10-14/build/`，请保留安装时的目录与路径，以便恢复。
 
@@ -133,7 +174,7 @@ python3 patches/2026-10-14/build/install.py restore
 
 加入个人数据库后的目录包含私人账号数据，请勿再次公开分享。
 
-## 发布验证
+## R3 完整包的发布验证
 
 R3 正式发布前已完成：
 
