@@ -1,0 +1,43 @@
+{
+  "status": "installed locally",
+  "app_path": "/Applications/CursorProTools.app",
+  "original_archive_sha256": "7c089f09f492f3921e9ea3b892d3995f0dd9edcf5b401fc5fc191449b5cfbd97",
+  "installed_archive_sha256": "06cc31d991b9076c83c8582737374dd858401e1f447eade3a6859cc31a340de8",
+  "controlled_browser": {
+    "synthetic_accounts": 804,
+    "original_same_data_row_renders": 9648,
+    "optimized_same_data_row_renders": 0,
+    "original_single_selection_row_renders": 804,
+    "optimized_single_selection_row_renders": 1,
+    "original_reload_task_seconds": 0.46437399999999995,
+    "optimized_reload_task_seconds": 0.07809000000000005,
+    "coverage": [
+      "804 retained rows",
+      "full selection and bulk refresh including offscreen IDs",
+      "latest committed callbacks",
+      "active refresh survives scrolling",
+      "details and unsaved nickname survive current-account reorder",
+      "failed nickname save retains draft and allows retry",
+      "filtered full selection and bulk conversion include all matching IDs",
+      "browser find reaches last account",
+      "responsive breakpoints"
+    ],
+    "dom_and_responsive_geometry_identical": true
+  },
+  "verification": [
+    "Main unit contracts passed",
+    "R3 account regression suite passed",
+    "Both full JS modules passed syntax checks",
+    "Installer restore and partial-signature failure rollback passed",
+    "Native app restarted and home/account page visible",
+    "Installed archive/plist hashes and deep strict signature passed",
+    "Cursor Agents bundle unchanged"
+  ],
+  "unselected_packed_members_byte_identical": 9700,
+  "limitations": [
+    "Browser benchmark uses packaged React/components with synthetic data, not real account operations.",
+    "No live account switch or model request triggered.",
+    "Rows, portals and visited panels stay mounted; no claimed reduction of steady renderer memory.",
+    "No GitHub release or binary asset updated in this step."
+  ]
+}
